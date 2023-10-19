@@ -9,7 +9,12 @@ function template() {
   return (
     <>
       <div>
-        <a href="graffiti">
+        <a
+          className="link-to-about"
+          onClick={() => {
+            navigate("graffiti");
+          }}
+        >
           <img src={projectLogo} className="logo" alt="GeM Logo" />
         </a>
       </div>
