@@ -3,16 +3,17 @@ import { useNavigate } from "react-router-dom";
 import "mind-ar/dist/mindar-image.prod.js";
 import "aframe";
 import * as THREE from "three";
-import { MindARThree } from "./mindarthree.d.ts";
+// import { MindARThree } from "./mindarthree.d.ts";
+import { useRef, useEffect } from "react";
 
-// import { MindARThree } from "mind-ar/dist/mindar-image-three.prod";
-import { useEffect, useRef } from "react";
+import { MindARThree } from "mind-ar/dist/mindar-image-three.prod";
+// import { useEffect, useRef } from "react";
 
 // import { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
 
 // import "mind-ar/dist/mindar-image-aframe.prod.js";
 // import "mind-ar/dist/mindar-image-three.prod.js";
-
+// let mindar: MindARThree;
 /** funcoes MindAR */
 const startMindARThree = (container: any) => {
   // const container = document.getElementById("#container");
