@@ -4,7 +4,7 @@ import "mind-ar/dist/mindar-image.prod.js";
 import "aframe";
 import * as THREE from "three";
 // import { MindARThree } from "./mindarthree.d.ts";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 
 import { MindARThree } from "mind-ar/dist/mindar-image-three.prod";
 // import { useEffect, useRef } from "react";
@@ -29,16 +29,17 @@ const startMindARThree = (container: any) => {
 
 function template() {
   console.log("Tela de instruções");
+  const [showCover, setShowCover] = useState(true);
+
   const navigate = useNavigate();
-  const container = useRef(null);
-  const start = useRef(null);
-  const stop = useRef(null);
-  const cover = useRef(null);
+  const container = useRef<HTMLDivElement>(null);
+  const start = useRef<HTMLButtonElement>(null);
+  const stop = useRef<HTMLButtonElement>(null);
+  const cover = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const element = container.current;
     /** inicia MindAR Three s*/
-    let mindarThree = startMindARThree(element);
+    let mindarThree = startMindARThree(container.current);
 
     // const startButton = start.current;
     // const stopButton = stop.current;
@@ -60,32 +61,46 @@ function template() {
     ambientLight.intensity = 20;
     anchor.group.add(ambientLight);
     /** inicia LOOP */
-    const startMindAR = async () => {
-      await mindarThree.start();
-      renderer.setAnimationLoop(() => {
-        // composer.render();
-        // const camera_dist = new THREE.Vector3();
-        // camera.getWorldPosition(camera_dist);
-        // console.log(camera_dist.length());
-        renderer.render(scene, camera);
-        // objectsToBeRotate.update();
-        // updateParticleNoise(particles);
-        // if (mixer) {
-        //   mixer.update(0.01);
-        // }
-      });
-    };
-    const start = () => {
-      console.log("inicia RA");
-      startMindAR();
-    };
-    document.getElementById("start")!["onClick"] = start;
+    // const startMindAR = async () => {
+    //   await mindarThree.start();
+    //   renderer.setAnimationLoop(() => {
+    //     // composer.render();
+    //     // const camera_dist = new THREE.Vector3();
+    //     // camera.getWorldPosition(camera_dist);
+    //     // console.log(camera_dist.length());
+    //     renderer.render(scene, camera);
+    //     // objectsToBeRotate.update();
+    //     // updateParticleNoise(particles);
+    //     // if (mixer) {
+    //     //   mixer.update(0.01);
+    //     // }
+    //   });
+    // };
 
-    document.getElementById("stop")!["onClick"] = () => {
-      if (mindarThree.stop) mindarThree.stop();
-      mindarThree.renderer.setAnimationLoop(null);
-      navigate("/");
-    };
+    if (start && start.current) {
+      start.current!.addEventListener("click", async () => {
+        console.log("inicia RA");
+        setShowCover(false);
+        await mindarThree.start();
+        renderer.setAnimationLoop(() => {
+          renderer.render(scene, camera);
+        });
+      });
+    }
+
+    if (stop && stop.current) {
+      stop.current!.addEventListener("click", () => {
+        console.log("Interrompe RA");
+        console.log(mindarThree);
+        try {
+          mindarThree.stop();
+          mindarThree.renderer.setAnimationLoop(null);
+        } catch {
+          console.log("erro ao tentar interromper RA ");
+        }
+        navigate("/");
+      });
+    }
   });
 
   return (
@@ -97,29 +112,19 @@ function template() {
         <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/dist/mindar-image-aframe.prod.js"></script>
       </head> */}
       <div ref={container} id="container"></div>
-      <div ref={cover} className="graffiti-ra">
-        <h3>Instruções</h3>
-        <p>1 - Dê permissão para acessar a câmera</p>
-        <p>2 - Aponte a câmera do aparelho para o graffiti</p>
-        <button
-          ref={start}
-          id="start"
-          onClick={() => {
-            console.log("Iniciar RA");
-          }}
-        >
-          Iniciar
-        </button>
-        <button
-          ref={stop}
-          id="stop"
-          onClick={() => {
-            console.log("Para RA");
-          }}
-        >
-          Sair
-        </button>
-      </div>
+      {showCover ? (
+        <div ref={cover} className="graffiti-ra">
+          <h3>Instruções</h3>
+          <p>1 - Dê permissão para acessar a câmera</p>
+          <p>2 - Aponte a câmera do aparelho para o graffiti</p>
+          <button ref={start} id="start">
+            Iniciar
+          </button>
+          <button ref={stop} id="stop">
+            Sair
+          </button>
+        </div>
+      ) : null}
     </>
   );
 }
