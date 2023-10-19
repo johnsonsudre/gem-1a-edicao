@@ -76,6 +76,7 @@ function template() {
     };
 
     document.getElementById("start")!.onclick = () => {
+      console.log("inicia RA");
       startMindAR();
     };
 
