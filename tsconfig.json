@@ -6,8 +6,12 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
+    "noImplicitAny": false,
+
     /* esModuleInterop */
-    "esModuleInterop": true,
+    /* "esModuleInterop": true, */
+
+    "typeRoots": ["./typings", "./node_modules/@types/"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
