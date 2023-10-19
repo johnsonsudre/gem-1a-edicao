@@ -75,13 +75,13 @@ function template() {
         // }
       });
     };
-
-    document.getElementById("start")!.onclick = () => {
+    const start = () => {
       console.log("inicia RA");
       startMindAR();
     };
+    document.getElementById("start")!["onClick"] = start;
 
-    document.getElementById("stop")!.onclick = () => {
+    document.getElementById("stop")!["onClick"] = () => {
       if (mindarThree.stop) mindarThree.stop();
       mindarThree.renderer.setAnimationLoop(null);
       navigate("/");
