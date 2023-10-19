@@ -1,10 +1,23 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
+// import App from "./App.tsx";
 import "./index.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createRoot } from "react-dom/client";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+import GraffitiRA from "./pages/GraffitiRA/GraffitiRA.tsx";
+import Cover from "./pages/Cover/Cover.tsx";
+import About from "./pages/About/About.tsx";
+
+const router = createBrowserRouter([
+  { path: "/", element: <Cover /> },
+  { path: "graffiti", element: <GraffitiRA /> },
+  { path: "about", element: <About /> },
+]);
+const rootElement = document.getElementById("root");
+const root = createRoot(rootElement!);
+
+root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
