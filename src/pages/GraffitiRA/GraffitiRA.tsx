@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "mind-ar/dist/mindar-image.prod.js";
 import "aframe";
 import * as THREE from "three";
-import { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
+import { MindARThree } from "./mindarthree.d.ts";
+
+// import { MindARThree } from "mind-ar/dist/mindar-image-three.prod";
 import { useEffect, useRef } from "react";
 
 // import { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
