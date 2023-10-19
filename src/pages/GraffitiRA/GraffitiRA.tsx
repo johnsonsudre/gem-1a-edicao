@@ -30,10 +30,17 @@ const startMindARThree = (container: any) => {
 function template() {
   const navigate = useNavigate();
   const container = useRef(null);
+  const start = useRef(null);
+  const stop = useRef(null);
+  const cover = useRef(null);
+
   useEffect(() => {
     const element = container.current;
     /** inicia MindAR Three s*/
     let mindarThree = startMindARThree(element);
+
+    const startButton = start.current;
+    const stopButton = stop.current;
 
     // inicia render, scene, camera
     const { renderer, scene, camera } = mindarThree;
@@ -51,9 +58,34 @@ function template() {
     var ambientLight = new THREE.AmbientLight(0x404040);
     ambientLight.intensity = 20;
     anchor.group.add(ambientLight);
+    /** inicia LOOP */
+    const startMindAR = async () => {
+      await mindarThree.start();
+      renderer.setAnimationLoop(() => {
+        // composer.render();
+        // const camera_dist = new THREE.Vector3();
+        // camera.getWorldPosition(camera_dist);
+        // console.log(camera_dist.length());
+        renderer.render(scene, camera);
+        // objectsToBeRotate.update();
+        // updateParticleNoise(particles);
+        // if (mixer) {
+        //   mixer.update(0.01);
+        // }
+      });
+    };
 
-    //
+    document.getElementById("start")!.onclick = () => {
+      startMindAR();
+    };
+
+    document.getElementById("stop")!.onclick = () => {
+      if (mindarThree.stop) mindarThree.stop();
+      mindarThree.renderer.setAnimationLoop(null);
+      navigate("/");
+    };
   });
+
   return (
     <>
       {/* <head>
@@ -62,17 +94,16 @@ function template() {
         <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
         <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/dist/mindar-image-aframe.prod.js"></script>
       </head> */}
-      <div className="graffiti-ra">
+      <div ref={container} id="container"></div>
+      <div ref={cover} className="graffiti-ra">
         <h1>GraffitiRA</h1>
-        <button
-          onClick={() => {
-            navigate("/");
-          }}
-        >
+        <button ref={start} id="start">
+          Iniciar
+        </button>
+        <button ref={stop} id="stop">
           Sair
         </button>
       </div>
-      <div ref={container} id="container"></div>
     </>
   );
 }
