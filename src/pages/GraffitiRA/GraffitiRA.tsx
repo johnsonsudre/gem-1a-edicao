@@ -101,10 +101,22 @@ function template() {
         <h3>Instruções</h3>
         <p>1 - Dê permissão para acessar a câmera</p>
         <p>2 - Aponte a câmera do aparelho para o graffiti</p>
-        <button ref={start} id="start">
+        <button
+          ref={start}
+          id="start"
+          onClick={() => {
+            console.log("Iniciar RA");
+          }}
+        >
           Iniciar
         </button>
-        <button ref={stop} id="stop">
+        <button
+          ref={stop}
+          id="stop"
+          onClick={() => {
+            console.log("Para RA");
+          }}
+        >
           Sair
         </button>
       </div>
