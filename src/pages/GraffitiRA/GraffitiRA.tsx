@@ -28,6 +28,7 @@ const startMindARThree = (container: any) => {
 };
 
 function template() {
+  console.log("Tela de instruções");
   const navigate = useNavigate();
   const container = useRef(null);
   const start = useRef(null);
@@ -97,7 +98,9 @@ function template() {
       </head> */}
       <div ref={container} id="container"></div>
       <div ref={cover} className="graffiti-ra">
-        <h1>GraffitiRA</h1>
+        <h3>Instruções</h3>
+        <p>1 - Dê permissão para acessar a câmera</p>
+        <p>2 - Aponte a câmera do aparelho para o graffiti</p>
         <button ref={start} id="start">
           Iniciar
         </button>
