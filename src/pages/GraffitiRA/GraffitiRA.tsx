@@ -39,8 +39,8 @@ function template() {
     /** inicia MindAR Three s*/
     let mindarThree = startMindARThree(element);
 
-    const startButton = start.current;
-    const stopButton = stop.current;
+    // const startButton = start.current;
+    // const stopButton = stop.current;
 
     // inicia render, scene, camera
     const { renderer, scene, camera } = mindarThree;
