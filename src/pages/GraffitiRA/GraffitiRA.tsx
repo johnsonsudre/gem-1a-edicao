@@ -3,16 +3,13 @@ import { useNavigate } from "react-router-dom";
 import "mind-ar/dist/mindar-image.prod.js";
 import "aframe";
 import * as THREE from "three";
-// import { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
+import { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
 import { useEffect, useRef } from "react";
-const MindARThree = require("mind-ar/dist/mindar-image-three.prod.js");
 
 // import { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
 
 // import "mind-ar/dist/mindar-image-aframe.prod.js";
 // import "mind-ar/dist/mindar-image-three.prod.js";
-
-let mixer: THREE.AnimationMixer;
 
 /** funcoes MindAR */
 const startMindARThree = (container: any) => {
@@ -34,6 +31,7 @@ function template() {
     const element = container.current;
     /** inicia MindAR Three s*/
     let mindarThree = startMindARThree(element);
+
     // inicia render, scene, camera
     const { renderer, scene, camera } = mindarThree;
     renderer.powerPreference = "high-performance";
@@ -41,7 +39,17 @@ function template() {
     renderer.stencil = false;
     renderer.depth = false;
     camera.near = 0.01;
+    scene.name = "graffiti";
+
+    //
     const anchor = mindarThree.addAnchor(0);
+
+    //
+    var ambientLight = new THREE.AmbientLight(0x404040);
+    ambientLight.intensity = 20;
+    anchor.group.add(ambientLight);
+
+    //
   });
   return (
     <>
