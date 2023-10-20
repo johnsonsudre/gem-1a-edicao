@@ -111,7 +111,6 @@ function template() {
         <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
         <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/dist/mindar-image-aframe.prod.js"></script>
       </head> */}
-      <div ref={container} id="container"></div>
       {showCover ? (
         <div ref={cover} className="graffiti-ra">
           <h3>Instruções</h3>
@@ -125,6 +124,7 @@ function template() {
           </button>
         </div>
       ) : null}
+      <div ref={container} id="container"></div>
     </>
   );
 }
