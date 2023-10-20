@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import projectLogo from "/logo-graffitiemmovimento-branco.svg";
 
 function template() {
+  window.location.reload();
   const navigate = useNavigate();
   return (
     <>
