@@ -36,7 +36,6 @@ const startMindARThree = (container: any) => {
 function template() {
   console.log("Tela de instruções");
   const [showCover, setShowCover] = useState(true);
-  const [mindArUiOverlay, setMindArUiOverlay] = useState(false);
 
   const navigate = useNavigate();
   const container = useRef<HTMLDivElement>(null);
