@@ -3,9 +3,9 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 
-import GraffitiRA from "./pages/GraffitiRA/GraffitiRA.tsx";
-import Cover from "./pages/Cover/Cover.tsx";
-import About from "./pages/About/About.tsx";
+import GraffitiRA from "./pages/GraffitiRA/GraffitiRA";
+import Cover from "./pages/Cover/Cover";
+import About from "./pages/About/About";
 
 const router = createBrowserRouter([
   { path: "/", element: <Cover /> },
