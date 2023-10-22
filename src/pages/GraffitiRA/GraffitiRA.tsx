@@ -33,17 +33,6 @@ const startMindARThree = (container: any) => {
   });
 };
 
-const StopButton = (elem) => {
-  const stopButton = useRef<HTMLButtonElement>(null);
-  return (
-    <>
-      <button ref={stopButton} className="exitButtonInsideAR">
-        Sair
-      </button>
-    </>
-  );
-};
-
 function template() {
   console.log("Tela de instruções");
   const [showCover, setShowCover] = useState(true);
@@ -52,6 +41,7 @@ function template() {
   const navigate = useNavigate();
   const container = useRef<HTMLDivElement>(null);
   const startButton = useRef<HTMLButtonElement>(null);
+  const stopButton = useRef<HTMLButtonElement>(null);
   const cover = useRef<HTMLDivElement>(null);
 
   let checkMindArOverlay = () => {
