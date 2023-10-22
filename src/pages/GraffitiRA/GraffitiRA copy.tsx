@@ -15,17 +15,11 @@ import { MindARThree } from "mind-ar/dist/mindar-image-three.prod";
 // import "mind-ar/dist/mindar-image-three.prod.js";
 // let mindar: MindARThree;
 /** funcoes MindAR */
-
-import projectLogo from "/logo-graffitiemmovimento-branco.svg";
-import { closeFullscreen, openFullscreen } from "../../tools/fullcreen";
-
 const startMindARThree = (container: any) => {
   // const container = document.getElementById("#container");
   console.log(container);
-  openFullscreen("root");
-
   return new MindARThree({
-    container: container,
+    container: document.querySelector("#container"),
     imageTargetSrc: "/marker/graffiti-final.mind",
     // suavização
     filterMinCF: 0.001,
@@ -33,37 +27,20 @@ const startMindARThree = (container: any) => {
   });
 };
 
-const StopButton = (elem) => {
-  const stopButton = useRef<HTMLButtonElement>(null);
-  return (
-    <>
-      <button ref={stopButton} className="exitButtonInsideAR">
-        Sair
-      </button>
-    </>
-  );
-};
-
 function template() {
   console.log("Tela de instruções");
   const [showCover, setShowCover] = useState(true);
-  const [mindArUiOverlay, setMindArUiOverlay] = useState(false);
 
   const navigate = useNavigate();
   const container = useRef<HTMLDivElement>(null);
   const startButton = useRef<HTMLButtonElement>(null);
+  const stopButton = useRef<HTMLButtonElement>(null);
   const cover = useRef<HTMLDivElement>(null);
 
-  let checkMindArOverlay = () => {
-    document.getElementsByClassName("mindar-ui-overlay");
-    console.log(checkMindArOverlay.length);
-    return checkMindArOverlay.length;
-  };
-
   useEffect(() => {
-    /** inicia MindAR Threejs*/
+    /** inicia MindAR Three s*/
     let mindarThree = startMindARThree(container.current);
-    console.log(mindarThree.anchors.length);
+    console.log(mindarThree);
     // const startButton = start.current;
     // const stopButton = stop.current;
 
@@ -104,19 +81,9 @@ function template() {
       startButton.current!.addEventListener("click", async () => {
         console.log("inicia RA");
         setShowCover(false);
-        console.log(mindarThree.start);
-        await mindarThree.start(() => {
-          console.log("start MindAR RA");
-        });
+        await mindarThree.start();
         renderer.setAnimationLoop(() => {
           renderer.render(scene, camera);
-          // if (mindarThree.anchors.length > 0) {
-          //   console.log(mindarThree.anchors[0].onTargetFound);
-          //   console.log(mindarThree.anchors[0].onTargetLost);
-          //   console.log(mindarThree.anchors[0].onTargetUpdate);
-          //   console.log(mindarThree.anchors[0].targetIndex);
-          //   console.log(mindarThree.anchors[0].visible);
-          // }
           // console.log(mindarThree);
         });
       });
@@ -125,14 +92,13 @@ function template() {
     if (stopButton && stopButton.current) {
       stopButton.current!.addEventListener("click", () => {
         console.log("Interrompe RA");
+        console.log(mindarThree);
         try {
           mindarThree.stop();
-          mindarThree.renderer.ssetAnimationLoop(null);
+          mindarThree.renderer.setAnimationLoop(null);
         } catch {
-          console.log(mindarThree.anchors);
           console.log("erro ao tentar interromper RA ");
         }
-        closeFullscreen();
         navigate("/");
       });
     }
@@ -146,37 +112,20 @@ function template() {
         <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
         <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/dist/mindar-image-aframe.prod.js"></script>
       </head> */}
-      {!showCover && (
-        <button ref={stopButton} className="exitButtonInsideAR">
-          Sair
-        </button>
-      )}
       {showCover ? (
         <div ref={cover} className="graffiti-ra">
-          <div className="card">
-            <img
-              src={projectLogo}
-              className="logo logo-instructions"
-              alt="GeM Logo"
-            />
-
-            <h3>Instruções</h3>
-
-            <p>1 - Dê permissão para acessar a câmera</p>
-            <p>2 - Aponte a câmera do aparelho para o graffiti</p>
-            <br />
-            <br />
-            <button ref={startButton} id="start">
-              Iniciar
-            </button>
-            <button ref={stopButton} id="stop">
-              Sair
-            </button>
-          </div>
+          <h3>Instruções</h3>
+          <p>1 - Dê permissão para acessar a câmera</p>
+          <p>2 - Aponte a câmera do aparelho para o graffiti</p>
+          <button ref={startButton} id="start">
+            Iniciar
+          </button>
+          <button ref={stopButton} id="stop">
+            Sair
+          </button>
         </div>
       ) : null}
       <div ref={container} id="container"></div>
-      <div id="debug"></div>
     </>
   );
 }
