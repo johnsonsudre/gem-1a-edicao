@@ -1,0 +1,21 @@
+.exitButtonInsideAR {
+  background-color: transparent;
+  color: black;
+  border: 3px solid;
+  border-color: black;
+  z-index: 999999999;
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  transform: translate(-50%, 0);
+  /* padding: 10px; */
+}
+
+.logo-instructions {
+  height: 6em;
+}
+
+.graffiti-ra {
+  top: 45%;
+  transform: translate(-50%, -50%);
+}
