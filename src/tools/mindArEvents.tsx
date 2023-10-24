@@ -1,0 +1,3 @@
+class checkMindArEvents {
+  constructor() {}
+}

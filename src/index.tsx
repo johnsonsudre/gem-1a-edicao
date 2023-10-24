@@ -3,13 +3,15 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 
-import GraffitiRA from "./pages/GraffitiRA/GraffitiRA";
-import Cover from "./pages/Cover/Cover";
-import About from "./pages/About/About";
+// import GraffitiRA from "./pages/GraffitiRA/GraffitiRA";
+import Cover from "./pages/Cover/Cover.tsx";
+import About from "./pages/About/About.tsx";
+import AppReact from "./pages/AppReact/AppReact";
 
 const router = createBrowserRouter([
   { path: "/", element: <Cover /> },
-  { path: "graffiti", element: <GraffitiRA /> },
+  { path: "graffiti", element: <AppReact /> },
+  //   { path: "graffiti", element: <GraffitiRA /> },
   { path: "about", element: <About /> },
 ]);
 const rootElement = document.getElementById("root");
@@ -18,6 +20,7 @@ const root = createRoot(rootElement!);
 root.render(
   <>
     {/* <React.StrictMode> */}
+    {/* <AppReact></AppReact> */}
     <RouterProvider router={router} />
     {/* </React.StrictMode>  */}
   </>
