@@ -1,34 +1,34 @@
 import { useEffect, useRef, useState } from "react";
 import { MindARThree } from "mind-ar/dist/mindar-image-three.prod";
-import * as MindAR from "mind-ar/dist/mindar-image.prod";
+// import * as MindAR from "mind-ar/dist/mindar-image.prod";
 import * as THREE from "three";
-import mindArUiScanning from "../../tools/checkMindArOverlay";
+// import mindArUiScanning from "../../tools/checkMindArOverlay";
 import checkMindArOverlay from "../../tools/checkMindArOverlay";
 import { useNavigate } from "react-router-dom";
 
-const Loading = () => {
-  return (
-    <>
-      <h1>Carregando</h1>
-    </>
-  );
-};
+// const Loading = () => {
+//   return (
+//     <>
+//       <h1>Carregando</h1>
+//     </>
+//   );
+// };
 
-const Scanning = () => {
-  return (
-    <>
-      <h1>Rastreando</h1>
-    </>
-  );
-};
+// const Scanning = () => {
+//   return (
+//     <>
+//       <h1>Rastreando</h1>
+//     </>
+//   );
+// };
 
-const Error = () => {
-  return (
-    <>
-      <h1>Erro</h1>
-    </>
-  );
-};
+// const Error = () => {
+//   return (
+//     <>
+//       <h1>Erro</h1>
+//     </>
+//   );
+// };
 export default () => {
   const [showRA, setShowRA] = useState(false);
   const navigate = useNavigate();
@@ -53,14 +53,14 @@ export default () => {
     mindARThree.ui.hideScanning();
 
     // Controlador MindAR
-    const mindARController = mindARThree.controller;
+    // const mindARController = mindARThree.controller;
     // console.log(mindARController);
     // console.log(mindarThree);
 
     // TESTE UI MINDAR
     // console.log(MindAR);
-    const Controller = window.MINDAR.IMAGE.Controller;
-    const UI = window.MINDAR.IMAGE.UI;
+    // const Controller = window.MINDAR.IMAGE.Controller;
+    // const UI = window.MINDAR.IMAGE.UI;
     // const Controller = new MindAR.Controller();
     // const Compiler = new MindAR.Compiler();
     // const UI = new MindAR.UI(Loading, Scanning, Error);
