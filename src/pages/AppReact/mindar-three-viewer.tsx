@@ -7,6 +7,9 @@ import checkMindArOverlay from "../../tools/checkMindArOverlay";
 import { useNavigate } from "react-router-dom";
 import { closeFullscreen, openFullscreen } from "../../tools/fullcreen";
 import projectLogo from "/logo-graffitiemmovimento-branco.svg";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
+import { ARController } from "./ARController";
 
 // const Loading = () => {
 //   return (
@@ -35,84 +38,23 @@ export default () => {
   const [showRA, setShowRA] = useState(false);
   const containerRef = useRef(null);
   const navigate = useNavigate();
-
-  class ARController {
-    mindThree;
-    visibility;
-    hidden;
-    showing;
-    constructor(mt?) {
-      this.hidden = "hidden";
-      this.showing = "inherit";
-      this.mindThree = mt ? mt : null;
-      if (this.mindThree) {
-        this.visibility = this.mindThree.ui.scanningMask.style.visibility;
-      }
-    }
-    init(mt) {
-      this.mindThree = mt;
-    }
-    // RA
-    stopScanning() {
-      if (this.mindThree) {
-        // this.mindThree.renderer.setAnimationLoop(null);
-        this.mindThree.stop();
-      }
-    }
-    startScanning() {
-      if (this.mindThree) this.mindThree.start();
-    }
-    // UI
-    hideScanning() {
-      if (this.mindThree)
-        this.mindThree.ui.scanningMask.style.visibility = this.hidden;
-    }
-    showScanning() {
-      if (this.mindThree)
-        this.mindThree.ui.scanningMask.style.visibility = this.showing;
-    }
-
-    showLoading() {
-      if (this.mindThree)
-        this.mindThree.ui.loadingModal.style.visibility = this.showing;
-    }
-
-    hideLoading() {
-      if (this.mindThree)
-        this.mindThree.ui.loadingModal.style.visibility = this.hidden;
-    }
-
-    showCompatibilityModal() {
-      if (this.mindThree)
-        this.mindThree.ui.compatibilityModal.style.visibility = this.showing;
-    }
-
-    hideCompatibilityModal() {
-      if (this.mindThree)
-        this.mindThree.ui.compatibilityModal.style.visibility = this.hidden;
-    }
-    showUI() {
-      this.showLoading();
-      this.showScanning();
-      this.showCompatibilityModal();
-    }
-    hideUI() {
-      this.hideLoading();
-      this.hideScanning();
-      this.hideCompatibilityModal();
-    }
-  }
+  const loader = new GLTFLoader();
+  const dracoLoader = new DRACOLoader();
+  dracoLoader.setDecoderPath("/examples/jsm/libs/draco/");
+  loader.setDRACOLoader(dracoLoader);
 
   const arController = new ARController();
 
   // mindARThree.container = containerRef.current;
   useEffect(() => {
+    openFullscreen("root");
+
     console.log(MindARThree);
     const mindARThree = new MindARThree({
       container: containerRef.current,
       imageTargetSrc: "/marker/graffiti-final.mind",
-      filterMinCF: 0.0001,
-      filterBeta: 0.001,
+      filterMinCF: 0.001,
+      filterBeta: 0.01,
     });
     arController.init(mindARThree);
     setShowRA(false);
@@ -126,6 +68,9 @@ export default () => {
       color: 0x00ffff,
       transparent: true,
       opacity: 0.5,
+    });
+    mindARThree.container.addEventListener("arReady", (event) => {
+      console.log("MindAR is ready");
     });
     const plane = new THREE.Mesh(geometry, material);
     anchor.group.add(plane);
@@ -165,6 +110,7 @@ export default () => {
           visibility: showRA ? "hidden" : "inherit",
           fontSize: "1.35rem",
           top: "50%",
+          zIndex: "2147483647",
         }}
       >
         <h3>Instruções</h3>
@@ -174,8 +120,8 @@ export default () => {
       </div>
       <button
         onClick={() => {
-          closeFullscreen();
           if (!showRA) {
+            closeFullscreen();
             navigate("/");
           } else {
             setShowRA(!showRA);
@@ -184,9 +130,10 @@ export default () => {
         }}
         className="stopButtonInsideAR"
         style={{
-          // right: showRA ? "2rem" : "50%",
-          justifyContent: "center",
-          alignItems: "center",
+          right: showRA ? "47%" : "44%",
+          opacity: showRA ? "25%" : "100%",
+          // justifyContent: "center",
+          // alignItems: "center",
           // display: "flex",
         }}
       >
@@ -194,7 +141,6 @@ export default () => {
       </button>
       <button
         onClick={() => {
-          openFullscreen("root");
           setShowRA(!showRA);
           arController.showScanning();
         }}
