@@ -4,6 +4,7 @@ import * as MindAR from "mind-ar/dist/mindar-image.prod";
 import * as THREE from "three";
 import mindArUiScanning from "../../tools/checkMindArOverlay";
 import checkMindArOverlay from "../../tools/checkMindArOverlay";
+import { useNavigate } from "react-router-dom";
 
 const Loading = () => {
   return (
@@ -30,6 +31,8 @@ const Error = () => {
 };
 export default () => {
   const [showRA, setShowRA] = useState(false);
+  const navigate = useNavigate();
+
   // mindARThree.container = containerRef.current;
   const containerRef = useRef(null);
   useEffect(() => {
@@ -110,7 +113,11 @@ export default () => {
     <>
       <button
         onClick={() => {
-          setShowRA(!showRA);
+          if (!showRA) {
+            navigate("/");
+          } else {
+            setShowRA(!showRA);
+          }
         }}
         className="stopButtonInsideAR"
       >
