@@ -6,6 +6,7 @@ import * as THREE from "three";
 import checkMindArOverlay from "../../tools/checkMindArOverlay";
 import { useNavigate } from "react-router-dom";
 import { closeFullscreen, openFullscreen } from "../../tools/fullcreen";
+import projectLogo from "/logo-graffitiemmovimento-branco.svg";
 
 // const Loading = () => {
 //   return (
@@ -35,6 +36,75 @@ export default () => {
   const containerRef = useRef(null);
   const navigate = useNavigate();
 
+  class ARController {
+    mindThree;
+    visibility;
+    hidden;
+    showing;
+    constructor(mt?) {
+      this.hidden = "hidden";
+      this.showing = "inherit";
+      this.mindThree = mt ? mt : null;
+      if (this.mindThree) {
+        this.visibility = this.mindThree.ui.scanningMask.style.visibility;
+      }
+    }
+    init(mt) {
+      this.mindThree = mt;
+    }
+    // RA
+    stopScanning() {
+      if (this.mindThree) {
+        // this.mindThree.renderer.setAnimationLoop(null);
+        this.mindThree.stop();
+      }
+    }
+    startScanning() {
+      if (this.mindThree) this.mindThree.start();
+    }
+    // UI
+    hideScanning() {
+      if (this.mindThree)
+        this.mindThree.ui.scanningMask.style.visibility = this.hidden;
+    }
+    showScanning() {
+      if (this.mindThree)
+        this.mindThree.ui.scanningMask.style.visibility = this.showing;
+    }
+
+    showLoading() {
+      if (this.mindThree)
+        this.mindThree.ui.loadingModal.style.visibility = this.showing;
+    }
+
+    hideLoading() {
+      if (this.mindThree)
+        this.mindThree.ui.loadingModal.style.visibility = this.hidden;
+    }
+
+    showCompatibilityModal() {
+      if (this.mindThree)
+        this.mindThree.ui.compatibilityModal.style.visibility = this.showing;
+    }
+
+    hideCompatibilityModal() {
+      if (this.mindThree)
+        this.mindThree.ui.compatibilityModal.style.visibility = this.hidden;
+    }
+    showUI() {
+      this.showLoading();
+      this.showScanning();
+      this.showCompatibilityModal();
+    }
+    hideUI() {
+      this.hideLoading();
+      this.hideScanning();
+      this.hideCompatibilityModal();
+    }
+  }
+
+  const arController = new ARController();
+
   // mindARThree.container = containerRef.current;
   useEffect(() => {
     const mindARThree = new MindARThree({
@@ -43,50 +113,10 @@ export default () => {
       filterMinCF: 0.0001,
       filterBeta: 0.001,
     });
+    arController.init(mindARThree);
     setShowRA(false);
-    // console.log(MindARThree);
-    // console.log(MindAR);
 
-    // Captura UI do MindAR
-    const scanningMaskUI = mindARThree.ui.scanningMask;
-    const loadingModalUI = mindARThree.ui.loadingModal;
-    const compatibilityModalUI = mindARThree.ui.compatibilityModal;
-    mindARThree.ui.hideScanning();
-
-    // Controlador MindAR
-    // const mindARController = mindARThree.controller;
-    // console.log(mindARController);
-    // console.log(mindarThree);
-
-    // TESTE UI MINDAR
-    // console.log(MindAR);
-    // const Controller = window.MINDAR.IMAGE.Controller;
-    // const UI = window.MINDAR.IMAGE.UI;
-    // const Controller = new MindAR.Controller();
-    // const Compiler = new MindAR.Compiler();
-    // const UI = new MindAR.UI(Loading, Scanning, Error);
-    // console.log(window.MINDAR);
-
-    // FIM TESTE MINDAR
-
-    console.log(mindARThree.anchors);
-    scanningMaskUI.classList.add("hidden");
-    loadingModalUI.classList.add("hidden");
-    compatibilityModalUI.classList.add("hidden");
-    // console.log(scanningMaskUI);
-
-    // UI.claloadingModalUIssList.add("hidden");
-
-    scanningMaskUI.style.visibility = "hidden";
-    loadingModalUI.style.visibility = "hidden";
-    compatibilityModalUI.style.visibility = "hidden";
-
-    // mindarThree.ui.scanningMask.style.display = "none"; // valor padrão é block ou inline
-    // mindarThree.ui.loadingModal.style.display = "none";
-    // console.log(MindAR);
-    // mindarThree.ui
-    // mindArUiScanning.check();
-    // mindArUiScanning.hide();
+    // controlUI.hideUI();
 
     const { renderer, scene, camera } = mindARThree;
     const anchor = mindARThree.addAnchor(0);
@@ -112,17 +142,50 @@ export default () => {
 
   return (
     <>
+      <img
+        src={projectLogo}
+        className="logo logo-instructions"
+        alt="GeM Logo"
+        style={{
+          width: "250%",
+          height: "250%",
+          // position: "initial",
+          position: "absolute",
+          top: "-80%",
+          right: 0,
+          opacity: "2%",
+        }}
+      />
+      <div
+        className="card"
+        style={{
+          visibility: showRA ? "hidden" : "inherit",
+          fontSize: "1.35rem",
+          top: "50%",
+        }}
+      >
+        <h3>Instruções</h3>
+
+        <p>1 - Dê permissão para acessar a câmera</p>
+        <p>2 - Aponte a câmera do aparelho para o graffiti</p>
+      </div>
       <button
-        onClick={(el) => {
-          console.log(el);
+        onClick={() => {
           closeFullscreen();
           if (!showRA) {
             navigate("/");
           } else {
             setShowRA(!showRA);
+            arController.stopScanning();
           }
         }}
         className="stopButtonInsideAR"
+        style={{
+          // right: showRA ? "2rem" : "50%",
+          justifyContent: "center",
+          alignItems: "center",
+          // display: "flex",
+        }}
       >
         Voltar
       </button>
@@ -130,19 +193,20 @@ export default () => {
         onClick={() => {
           openFullscreen("root");
           setShowRA(!showRA);
+          arController.showScanning();
         }}
         className="stopButtonInsideAR"
-        style={{ top: "6rem", visibility: showRA ? "hidden" : "inherit" }}
+        style={{ right: "50%", visibility: showRA ? "hidden" : "inherit" }}
       >
         Iniciar
       </button>
-
       <div style={{ display: "block" }}>
         <div
           style={{
             width: "100vw",
             height: "100vh",
-            visibility: showRA ? "inherit" : "hidden",
+            // visibility: showRA ? "inherit" : "hidden",
+            opacity: showRA ? "100%" : "5%",
           }}
           ref={containerRef}
         ></div>
