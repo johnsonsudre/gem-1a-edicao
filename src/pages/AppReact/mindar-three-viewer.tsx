@@ -42,15 +42,16 @@ export default () => {
   const dracoLoader = new DRACOLoader();
   dracoLoader.setDecoderPath("/examples/jsm/libs/draco/");
   loader.setDRACOLoader(dracoLoader);
+  let mindARThree: MindARThree;
+  let mixer: THREE.AnimationMixer;
 
   const arController = new ARController();
 
   // mindARThree.container = containerRef.current;
   useEffect(() => {
     openFullscreen("root");
-
     console.log(MindARThree);
-    const mindARThree = new MindARThree({
+    mindARThree = new MindARThree({
       container: containerRef.current,
       imageTargetSrc: "/marker/graffiti-final.mind",
       filterMinCF: 0.001,
@@ -63,22 +64,53 @@ export default () => {
 
     const { renderer, scene, camera } = mindARThree;
     const anchor = mindARThree.addAnchor(0);
-    const geometry = new THREE.PlaneGeometry((1 / 21) * 20, (1 / 29) * 20);
-    const material = new THREE.MeshBasicMaterial({
-      color: 0x00ffff,
-      transparent: true,
-      opacity: 0.5,
-    });
+    var ambientLight = new THREE.AmbientLight(0x404040);
+    ambientLight.intensity = 20;
+    anchor.group.add(ambientLight);
     mindARThree.container.addEventListener("arReady", (event) => {
       console.log("MindAR is ready");
     });
-    const plane = new THREE.Mesh(geometry, material);
-    anchor.group.add(plane);
+
+    // carrega um recurso/modelo glTF
+    loader.load(
+      // URL do recurso/modelo
+      "/assets/animacao-ufes.glb",
+      // chamado quando o recurso é carregado
+      function (gltf) {
+        // scene.add(gltf.scene);
+        console.log(gltf);
+        const model = gltf.scene;
+        model.position.set(0, 0.015, 0);
+        // gltf.scene.scale.set(1.15, 1.15, 1.15);
+        anchor.group.add(model);
+        mixer = new THREE.AnimationMixer(model);
+        var clip = gltf.animations[0];
+        mixer.clipAction(clip).play();
+
+        gltf.animations; // Array<THREE.AnimationClip>
+        gltf.scene; // THREE.Group
+        gltf.scenes; // Array<THREE.Group>
+        gltf.cameras; // Array<THREE.Camera>
+        gltf.asset; // Object
+      },
+      // chamado enquanto o carregamento esta progredindo
+      function (xhr) {
+        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+      },
+      // chamado quando ocorre erro no carregamento
+      function (error) {
+        console.log("An error happened");
+      }
+    );
 
     mindARThree.start();
     renderer.setAnimationLoop(() => {
       renderer.render(scene, camera);
+      if (mixer) {
+        mixer.update(0.01);
+      }
     });
+
     return () => {
       checkMindArOverlay.hide();
       renderer.setAnimationLoop(null);
