@@ -1,3 +1,17 @@
 .hidden {
   display: none;
 }
+
+.stopButtonInsideAR {
+  background-color: transparent;
+  color: black;
+  border: 3px solid;
+  border-color: black;
+  /* z-index max value */
+  z-index: 2147483647;
+  position: absolute;
+  top: 2rem;
+  /* left: 2rem; */
+  /* transform: translate(-50%, 0); */
+  /* padding: 10px; */
+}
