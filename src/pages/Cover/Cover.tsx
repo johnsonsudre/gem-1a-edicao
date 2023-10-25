@@ -29,7 +29,7 @@ function template() {
             // fontStyle: "italic",
           }}
         >
-          Fase 1: <b>g</b>graffiti & <b>r</b>ealidade <b>a</b>umentada
+          Fase 1: <b>g</b>raffiti & <b>r</b>ealidade <b>a</b>umentada
         </p>
         <button
           style={{
