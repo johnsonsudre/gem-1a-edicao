@@ -67,8 +67,8 @@ export default () => {
     var ambientLight = new THREE.AmbientLight(0x404040);
     ambientLight.intensity = 20;
     anchor.group.add(ambientLight);
-    mindARThree.container.addEventListener("arReady", (event) => {
-      console.log("MindAR is ready");
+    mindARThree.container.addEventListener("arReady", () => {
+      console.log("MindAR esta pronto");
     });
 
     // carrega um recurso/modelo glTF
@@ -99,7 +99,7 @@ export default () => {
       },
       // chamado quando ocorre erro no carregamento
       function (error) {
-        console.log("An error happened");
+        console.log("Ocorreu um erro no carregamento do modelo", error);
       }
     );
 
