@@ -5,6 +5,7 @@ import * as THREE from "three";
 // import mindArUiScanning from "../../tools/checkMindArOverlay";
 import checkMindArOverlay from "../../tools/checkMindArOverlay";
 import { useNavigate } from "react-router-dom";
+import { closeFullscreen, openFullscreen } from "../../tools/fullcreen";
 
 // const Loading = () => {
 //   return (
@@ -113,6 +114,7 @@ export default () => {
     <>
       <button
         onClick={() => {
+          closeFullscreen();
           if (!showRA) {
             navigate("/");
           } else {
@@ -125,6 +127,7 @@ export default () => {
       </button>
       <button
         onClick={() => {
+          openFullscreen("root");
           setShowRA(!showRA);
         }}
         className="stopButtonInsideAR"

@@ -4,9 +4,9 @@
 
 .stopButtonInsideAR {
   background-color: transparent;
-  color: black;
+  color: white;
   border: 3px solid;
-  border-color: black;
+  border-color: gray;
   /* z-index max value */
   z-index: 2147483647;
   position: absolute;
