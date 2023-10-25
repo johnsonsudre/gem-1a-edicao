@@ -107,6 +107,7 @@ export default () => {
 
   // mindARThree.container = containerRef.current;
   useEffect(() => {
+    console.log(MindARThree);
     const mindARThree = new MindARThree({
       container: containerRef.current,
       imageTargetSrc: "/marker/graffiti-final.mind",
@@ -142,20 +143,22 @@ export default () => {
 
   return (
     <>
-      <img
-        src={projectLogo}
-        className="logo logo-instructions"
-        alt="GeM Logo"
-        style={{
-          width: "250%",
-          height: "250%",
-          // position: "initial",
-          position: "absolute",
-          top: "-80%",
-          right: 0,
-          opacity: "2%",
-        }}
-      />
+      {!showRA && (
+        <img
+          src={projectLogo}
+          className="logo logo-instructions"
+          alt="GeM Logo"
+          style={{
+            width: "250%",
+            height: "250%",
+            // position: "initial",
+            position: "absolute",
+            top: "-80%",
+            right: 0,
+            opacity: "2%",
+          }}
+        />
+      )}
       <div
         className="card"
         style={{
