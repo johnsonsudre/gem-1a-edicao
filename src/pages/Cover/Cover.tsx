@@ -11,7 +11,7 @@ function template() {
       <div className="card">
         <div>
           <a
-            className="link-to-about"
+            // className="link-to-about"
             onClick={() => {
               navigate("graffiti");
             }}
@@ -19,8 +19,26 @@ function template() {
             <img src={projectLogo} className="logo" alt="GeM Logo" />
           </a>
         </div>
-        <h2>Projeto de arte digital com graffiti e realidade aumenta</h2>
+        <p style={{ marginTop: "-1rem", fontSize: "1.35rem" }}>
+          Projeto de arte digital
+        </p>
+        <p
+          style={{
+            marginTop: "-1.5rem",
+            fontSize: "1rem",
+            // fontStyle: "italic",
+          }}
+        >
+          Fase 1: <b>g</b>graffiti & <b>r</b>ealidade <b>a</b>umentada
+        </p>
         <button
+          style={{
+            marginTop: "10px",
+            paddingInline: "40px",
+            paddingBlock: "20px",
+            borderColor: "gray",
+            fontSize: "1.5rem",
+          }}
           id="start"
           onClick={() => {
             navigate("graffiti");

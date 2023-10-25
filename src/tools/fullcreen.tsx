@@ -15,8 +15,12 @@ export function openFullscreen(el) {
 
 /* Close fullscreen */
 export function closeFullscreen() {
-  if (document["exitFullscreen"]) {
-    document["exitFullscreen"]();
+  if (window["exitFullscreen"]) {
+    try {
+      window["exitFullscreen"]();
+    } catch (err) {
+      console.log("tentativa de sair do modo fullscreen falhou", err);
+    }
   } else if (document["webkitExitFullscreen"]) {
     /* Safari */
     document["webkitExitFullscreen"]();

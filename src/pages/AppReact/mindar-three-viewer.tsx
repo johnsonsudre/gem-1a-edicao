@@ -32,10 +32,10 @@ import { closeFullscreen, openFullscreen } from "../../tools/fullcreen";
 // };
 export default () => {
   const [showRA, setShowRA] = useState(false);
+  const containerRef = useRef(null);
   const navigate = useNavigate();
 
   // mindARThree.container = containerRef.current;
-  const containerRef = useRef(null);
   useEffect(() => {
     const mindARThree = new MindARThree({
       container: containerRef.current,
@@ -113,7 +113,8 @@ export default () => {
   return (
     <>
       <button
-        onClick={() => {
+        onClick={(el) => {
+          console.log(el);
           closeFullscreen();
           if (!showRA) {
             navigate("/");
