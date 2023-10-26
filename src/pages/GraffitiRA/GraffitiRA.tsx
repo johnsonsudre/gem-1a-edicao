@@ -19,6 +19,8 @@ import { MindARThree } from "mind-ar/dist/mindar-image-three.prod";
 import projectLogo from "/logo-graffitiemmovimento-branco.svg";
 import { closeFullscreen, openFullscreen } from "../../tools/fullcreen";
 
+/** Particulas */
+
 const startMindARThree = (container: any) => {
   // const container = document.getElementById("#container");
   console.log(container);

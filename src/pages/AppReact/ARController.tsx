@@ -1,58 +1,66 @@
+import { MindARThree } from "mind-ar/dist/mindar-image-three.prod";
+
 export class ARController {
-  mindThree;
+  mindARThree;
   visibility;
   hidden;
   showing;
-  constructor(mt?) {
+  uiScanning;
+  uiLoading;
+  uiCompatibility;
+
+  constructor() {
     this.hidden = "hidden";
     this.showing = "inherit";
-    this.mindThree = mt ? mt : null;
-    if (this.mindThree) {
-      this.visibility = this.mindThree.ui.scanningMask.style.visibility;
-    }
   }
-  init(mt) {
-    this.mindThree = mt;
+  init(container) {
+    this.mindARThree = new MindARThree({
+      container: container,
+      imageTargetSrc: "/marker/graffiti-final.mind",
+      filterMinCF: 0.001,
+      filterBeta: 0.01,
+    });
+    this.uiScanning = this.mindARThree.ui.scanningMask;
+    this.uiLoading = this.mindARThree.ui.loadingModal;
+    this.uiCompatibility = this.mindARThree.ui.compatibilityModal;
   }
+  //
   // RA
-  stopScanning() {
-    if (this.mindThree) {
-      // this.mindThree.renderer.setAnimationLoop(null);
-      this.mindThree.stop();
+  stop() {
+    if (this.mindARThree) {
+      // this.mindARThree.renderer.setAnimationLoop(null);
+      this.mindARThree.stop();
     }
   }
-  startScanning() {
-    if (this.mindThree) this.mindThree.start();
+  start() {
+    if (this.mindARThree) this.mindARThree.start();
   }
-  // UI
+  /** UI */
   hideScanning() {
-    if (this.mindThree)
-      this.mindThree.ui.scanningMask.style.visibility = this.hidden;
+    if (this.mindARThree) this.uiScanning.style.visibility = this.hidden;
   }
+
   showScanning() {
-    if (this.mindThree)
-      this.mindThree.ui.scanningMask.style.visibility = this.showing;
+    console.log(this.uiScanning);
+    if (this.mindARThree) this.uiScanning.style.visibility = this.showing;
   }
 
   showLoading() {
-    if (this.mindThree)
-      this.mindThree.ui.loadingModal.style.visibility = this.showing;
+    if (this.mindARThree) this.uiLoading.style.visibility = this.showing;
   }
 
   hideLoading() {
-    if (this.mindThree)
-      this.mindThree.ui.loadingModal.style.visibility = this.hidden;
+    if (this.mindARThree) this.uiLoading.style.visibility = this.hidden;
   }
 
   showCompatibilityModal() {
-    if (this.mindThree)
-      this.mindThree.ui.compatibilityModal.style.visibility = this.showing;
+    if (this.mindARThree) this.uiCompatibility.style.visibility = this.showing;
   }
 
   hideCompatibilityModal() {
-    if (this.mindThree)
-      this.mindThree.ui.compatibilityModal.style.visibility = this.hidden;
+    if (this.mindARThree) this.uiCompatibility.style.visibility = this.hidden;
   }
+
   showUI() {
     this.showLoading();
     this.showScanning();
@@ -62,5 +70,17 @@ export class ARController {
     this.hideLoading();
     this.hideScanning();
     this.hideCompatibilityModal();
+  }
+  setZIndex(zIndex) {
+    this.uiScanning.zIndex = zIndex;
+    this.uiLoading.zIndex = zIndex;
+    this.uiCompatibility.zIndex = zIndex;
+  }
+
+  reset() {
+    console.log(this.uiScanning);
+    this.uiScanning = null;
+    this.uiLoading = null;
+    this.uiCompatibility = null;
   }
 }

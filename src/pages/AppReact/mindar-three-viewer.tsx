@@ -29,15 +29,11 @@ export default () => {
 
   useEffect(() => {
     openFullscreen("root");
-    mindARThree = new MindARThree({
-      container: containerRef.current,
-      imageTargetSrc: "/marker/graffiti-final.mind",
-      filterMinCF: 0.001,
-      filterBeta: 0.01,
-    });
 
     /** Inicia controlador para mindAR */
-    arController.init(mindARThree);
+    arController.init(containerRef.current);
+    arController.setZIndex(2147483000);
+    mindARThree = arController.mindARThree;
 
     /** desetrutura objetos necessários */
     const { renderer, scene, camera } = mindARThree;
@@ -115,7 +111,7 @@ export default () => {
     );
 
     /** iniciar rastreamento */
-    mindARThree.start();
+    arController.start();
 
     /** inicia loop */
     renderer.setAnimationLoop(() => {
@@ -171,10 +167,11 @@ export default () => {
         onClick={() => {
           if (!showRA) {
             closeFullscreen();
+            arController.reset();
             navigate("/");
           } else {
             setShowRA(!showRA);
-            arController.stopScanning();
+            arController.stop();
           }
         }}
         className="stopButtonInsideAR"
