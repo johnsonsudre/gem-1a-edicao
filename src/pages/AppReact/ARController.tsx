@@ -20,6 +20,9 @@ export class ARController {
       filterMinCF: 0.001,
       filterBeta: 0.01,
     });
+    console.log(this.mindARThree);
+    // this.mindARThree.addEventListener("arReady", () => {
+    // });
     this.uiScanning = this.mindARThree.ui.scanningMask;
     this.uiLoading = this.mindARThree.ui.loadingModal;
     this.uiCompatibility = this.mindARThree.ui.compatibilityModal;
@@ -41,7 +44,6 @@ export class ARController {
   }
 
   showScanning() {
-    console.log(this.uiScanning);
     if (this.mindARThree) this.uiScanning.style.visibility = this.showing;
   }
 
@@ -78,9 +80,24 @@ export class ARController {
   }
 
   reset() {
-    console.log(this.uiScanning);
-    this.uiScanning = null;
-    this.uiLoading = null;
-    this.uiCompatibility = null;
+    // mindar-ui-overlay
+    const scanningElements = document.getElementsByClassName(
+      "mindar-ui-overlay mindar-ui-scanning"
+    );
+    const loadingElements = document.getElementsByClassName(
+      "mindar-ui-overlay mindar-ui-loading"
+    );
+    const compatibilityElements = document.getElementsByClassName(
+      "mindar-ui-overlay mindar-ui-compatibility"
+    );
+    scanningElements[0].remove();
+    loadingElements[0].remove();
+    compatibilityElements[0].remove();
+    // console.log(this.uiLoading);
+    // console.log(this.uiCompatibility);
+
+    // if (this.uiScanning) this.uiScanning.remove();
+    // if (this.uiLoading) this.uiLoading.remove();
+    // if (this.uiCompatibility) this.uiCompatibility.remove();
   }
 }

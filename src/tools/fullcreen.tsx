@@ -2,7 +2,7 @@ export function openFullscreen(el) {
   var elem = document.getElementById(el);
   if (elem) {
     if (elem["requestFullscreen"]) {
-      elem["requestFullscreen"]();
+      elem.requestFullscreen();
     } else if (elem["webkitRequestFullscreen"]) {
       /* Safari */
       elem["webkitRequestFullscreen"]();

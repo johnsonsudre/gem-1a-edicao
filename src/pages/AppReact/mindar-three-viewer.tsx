@@ -40,6 +40,13 @@ export default () => {
 
     /**  */
     const anchor = mindARThree.addAnchor(0);
+    console.log(anchor);
+    anchor.onTargetFound = () => {
+      console.log("Imagem encontrada. Rastreando ....");
+    };
+    anchor.onTargetLost = () => {
+      console.log("Imagem perdida");
+    };
 
     /** iluminação do ambiente */
     var ambientLight = new THREE.AmbientLight(0x404040);
@@ -167,11 +174,12 @@ export default () => {
         onClick={() => {
           if (!showRA) {
             closeFullscreen();
-            arController.reset();
             navigate("/");
+            // arController.stop();
+            arController.reset();
           } else {
             setShowRA(!showRA);
-            arController.stop();
+            // arController.stop();
           }
         }}
         className="stopButtonInsideAR"
