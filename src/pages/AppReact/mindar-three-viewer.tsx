@@ -10,7 +10,7 @@ import projectLogo from "/logo-graffitiemmovimento-branco.svg";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import { ARController } from "./ARController";
-import { randomBetween } from "../../tools/randomBetween";
+// import { randomBetween } from "../../tools/randomBetween";
 import { startParticles, updateParticleNoise } from "./particles";
 import { rotateObjects } from "./rotateObjects";
 
@@ -58,8 +58,8 @@ export default () => {
     const objectsToBeRotate = new rotateObjects();
 
     /** Adiciona particulas */
-    const particles = startParticles();
-    anchor.group.add(particles);
+    const dust = startParticles();
+    anchor.group.add(dust);
 
     /**  carrega um recurso/modelo glTF */
     loader.load(
@@ -117,7 +117,7 @@ export default () => {
     renderer.setAnimationLoop(() => {
       renderer.render(scene, camera);
       objectsToBeRotate.update();
-      updateParticleNoise(particles);
+      updateParticleNoise(dust);
       if (mixer) {
         mixer.update(0.01);
       }
