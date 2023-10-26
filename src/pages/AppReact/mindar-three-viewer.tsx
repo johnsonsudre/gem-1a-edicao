@@ -10,30 +10,10 @@ import projectLogo from "/logo-graffitiemmovimento-branco.svg";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import { ARController } from "./ARController";
+import { randomBetween } from "../../tools/randomBetween";
+import { startParticles, updateParticleNoise } from "./particles";
+import { rotateObjects } from "./rotateObjects";
 
-// const Loading = () => {
-//   return (
-//     <>
-//       <h1>Carregando</h1>
-//     </>
-//   );
-// };
-
-// const Scanning = () => {
-//   return (
-//     <>
-//       <h1>Rastreando</h1>
-//     </>
-//   );
-// };
-
-// const Error = () => {
-//   return (
-//     <>
-//       <h1>Erro</h1>
-//     </>
-//   );
-// };
 export default () => {
   const [showRA, setShowRA] = useState(false);
   const containerRef = useRef(null);
@@ -47,51 +27,82 @@ export default () => {
 
   const arController = new ARController();
 
-  // mindARThree.container = containerRef.current;
   useEffect(() => {
     openFullscreen("root");
-    console.log(MindARThree);
     mindARThree = new MindARThree({
       container: containerRef.current,
       imageTargetSrc: "/marker/graffiti-final.mind",
       filterMinCF: 0.001,
       filterBeta: 0.01,
     });
+
+    /** Inicia controlador para mindAR */
     arController.init(mindARThree);
-    setShowRA(false);
 
-    // controlUI.hideUI();
-
+    /** desetrutura objetos necessários */
     const { renderer, scene, camera } = mindARThree;
+
+    /**  */
     const anchor = mindARThree.addAnchor(0);
+
+    /** iluminação do ambiente */
     var ambientLight = new THREE.AmbientLight(0x404040);
     ambientLight.intensity = 20;
     anchor.group.add(ambientLight);
+
+    /** testa addeventlistener arReady */
     mindARThree.container.addEventListener("arReady", () => {
       console.log("MindAR esta pronto");
     });
 
-    // carrega um recurso/modelo glTF
+    // automações
+
+    /** prepara cena */
+
+    const objectsToBeRotate = new rotateObjects();
+
+    /** Adiciona particulas */
+    const particles = startParticles();
+    anchor.group.add(particles);
+
+    /**  carrega um recurso/modelo glTF */
     loader.load(
       // URL do recurso/modelo
       "/assets/animacao-ufes.glb",
       // chamado quando o recurso é carregado
-      function (gltf) {
-        // scene.add(gltf.scene);
-        console.log(gltf);
+      (gltf) => {
         const model = gltf.scene;
         model.position.set(0, 0.015, 0);
-        // gltf.scene.scale.set(1.15, 1.15, 1.15);
         anchor.group.add(model);
+        model.traverse(function (object: any) {
+          objectsToBeRotate.check(object);
+          if (object.isMesh) {
+            if (!object.userData.noShadow) object.castShadow = true;
+          }
+          if (object.material) {
+            // console.log(object.material.userData.emissive);
+            // if (object.material.userData.emissive) {
+            //   console.log(object.material.emissive);
+            //   const colorEmissive = new THREE.Color("#ffffff");
+            //   // console.log(colorEmissive);
+            //   object.material.emissive = colorEmissive;
+            //   object.material.emissiveIntensity = 10;
+            //   object.material.toneMapped = false;
+            // }
+          }
+        });
+
+        /** inicia animação */
         mixer = new THREE.AnimationMixer(model);
         var clip = gltf.animations[0];
         mixer.clipAction(clip).play();
-
+        /** exemplos
         gltf.animations; // Array<THREE.AnimationClip>
         gltf.scene; // THREE.Group
         gltf.scenes; // Array<THREE.Group>
         gltf.cameras; // Array<THREE.Camera>
         gltf.asset; // Object
+        */
       },
       // chamado enquanto o carregamento esta progredindo
       function (xhr) {
@@ -103,14 +114,20 @@ export default () => {
       }
     );
 
+    /** iniciar rastreamento */
     mindARThree.start();
+
+    /** inicia loop */
     renderer.setAnimationLoop(() => {
       renderer.render(scene, camera);
+      objectsToBeRotate.update();
+      updateParticleNoise(particles);
       if (mixer) {
         mixer.update(0.01);
       }
     });
 
+    /**  */
     return () => {
       checkMindArOverlay.hide();
       renderer.setAnimationLoop(null);
