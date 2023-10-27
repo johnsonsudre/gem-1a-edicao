@@ -37,9 +37,13 @@ export default () => {
 
     /** desetrutura objetos necessários */
     const { renderer, scene, camera } = mindARThree;
+    console.log(mindARThree);
+    // console.log(controller);
 
     /**  */
     const anchor = mindARThree.addAnchor(0);
+
+    /** EVENTS  */
     console.log(anchor);
     anchor.onTargetFound = () => {
       console.log("Imagem encontrada. Rastreando ....");
@@ -48,15 +52,18 @@ export default () => {
       console.log("Imagem perdida");
     };
 
+    // anchor.onTargetUpdate = () => {
+    //   console.log("onTargetUpdate");
+    // };
+
+    // console.log(mindARThree.controller.workerTrackDone);
     /** iluminação do ambiente */
     var ambientLight = new THREE.AmbientLight(0x404040);
     ambientLight.intensity = 20;
     anchor.group.add(ambientLight);
 
     /** testa addeventlistener arReady */
-    mindARThree.container.addEventListener("arReady", () => {
-      console.log("MindAR esta pronto");
-    });
+    console.log(window["MINDAR"]["IMAGE"]);
 
     // automações
 

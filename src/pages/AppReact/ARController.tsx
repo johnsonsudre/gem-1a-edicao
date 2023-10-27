@@ -20,7 +20,11 @@ export class ARController {
       filterMinCF: 0.001,
       filterBeta: 0.01,
     });
-    console.log(this.mindARThree);
+    console.log(Object.entries(this.mindARThree));
+    console.log(Object.entries(this.mindARThree.renderer));
+    // const controller = this.mindARThree.controller;
+    // console.log(controller);
+    // console.log(this.mindARThree.entries());
     // this.mindARThree.addEventListener("arReady", () => {
     // });
     this.uiScanning = this.mindARThree.ui.scanningMask;
