@@ -38,23 +38,26 @@ export default () => {
     /** desetrutura objetos necessários */
     const { renderer, scene, camera } = mindARThree;
     console.log(mindARThree);
+    console.log(camera.position);
     // console.log(controller);
 
     /**  */
     const anchor = mindARThree.addAnchor(0);
 
     /** EVENTS  */
-    console.log(anchor);
+    console.log(anchor.group);
     anchor.onTargetFound = () => {
       console.log("Imagem encontrada. Rastreando ....");
+      console.log(camera.position);
     };
     anchor.onTargetLost = () => {
       console.log("Imagem perdida");
     };
 
-    // anchor.onTargetUpdate = () => {
-    //   console.log("onTargetUpdate");
-    // };
+    anchor.onTargetUpdate = () => {
+      // console.log("onTargetUpdate");
+      // console.log(camera.position);
+    };
 
     // console.log(mindARThree.controller.workerTrackDone);
     /** iluminação do ambiente */
@@ -85,7 +88,13 @@ export default () => {
         model.position.set(0, 0.015, 0);
         anchor.group.add(model);
         model.traverse(function (object: any) {
-          objectsToBeRotate.check(object);
+          if (object.userData.alpha) {
+            console.log(object.material);
+            object.material.alphaMap = new THREE.TextureLoader().load(
+              "images/graffiti-alpha-mask.png"
+            );
+          }
+          objectsToBeRotate.check(object.userData);
           if (object.isMesh) {
             if (!object.userData.noShadow) object.castShadow = true;
           }
