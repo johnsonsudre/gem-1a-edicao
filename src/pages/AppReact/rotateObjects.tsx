@@ -3,6 +3,7 @@ export class rotateObjects {
   constructor() {}
   check(obj: any) {
     if (obj.userData && obj.userData.rotate) {
+      console.log(`Rotacionar ${obj.name}`);
       this.add({
         object: obj,
         axis: obj.userData.axis,

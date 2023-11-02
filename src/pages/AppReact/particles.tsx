@@ -55,7 +55,7 @@ const startParticles = () => {
 };
 
 const updateParticleNoise = (particles: THREE.Object3D) => {
-  const positionNoiseFactor = 0.002;
+  const positionNoiseFactor = 0.001;
   const scaleNoiseFactor = 0.001;
 
   particles.children.map((dust) => {
