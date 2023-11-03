@@ -193,39 +193,42 @@ export default () => {
         <p>1 - Dê permissão para acessar a câmera</p>
         <p>2 - Aponte a câmera do aparelho para o graffiti</p>
       </div>
-      <button
-        onClick={() => {
-          if (!showRA) {
-            closeFullscreen();
-            navigate("/");
-            // arController.stop();
-            arController.reset();
-          } else {
+      <div className="card-buttons">
+        <button
+          onClick={() => {
+            if (!showRA) {
+              closeFullscreen();
+              navigate("/");
+              // arController.stop();
+              arController.reset();
+            } else {
+              setShowRA(!showRA);
+              // arController.stop();
+            }
+          }}
+          className="buttonsInsideAR"
+          style={{
+            // right: showRA ? "47%" : "44%",
+            opacity: showRA ? "25%" : "100%",
+            // justifyContent: "center",
+            // alignItems: "center",
+            // display: "flex",
+          }}
+        >
+          Voltar
+        </button>
+
+        <button
+          onClick={() => {
             setShowRA(!showRA);
-            // arController.stop();
-          }
-        }}
-        className="stopButtonInsideAR"
-        style={{
-          right: showRA ? "47%" : "44%",
-          opacity: showRA ? "25%" : "100%",
-          // justifyContent: "center",
-          // alignItems: "center",
-          // display: "flex",
-        }}
-      >
-        Voltar
-      </button>
-      <button
-        onClick={() => {
-          setShowRA(!showRA);
-          arController.showScanning();
-        }}
-        className="stopButtonInsideAR"
-        style={{ right: "50%", visibility: showRA ? "hidden" : "inherit" }}
-      >
-        Iniciar
-      </button>
+            arController.showScanning();
+          }}
+          className="buttonsInsideAR"
+          style={{ display: showRA ? "none" : "undefined" }}
+        >
+          Iniciar
+        </button>
+      </div>
       <div style={{ display: "block" }}>
         <div
           style={{
