@@ -235,7 +235,7 @@ export default () => {
             width: "100vw",
             height: "100vh",
             // visibility: showRA ? "inherit" : "hidden",
-            opacity: showRA ? "100%" : "5%",
+            opacity: showRA ? "100%" : "15%",
           }}
           ref={containerRef}
         ></div>
