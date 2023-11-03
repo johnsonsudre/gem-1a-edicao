@@ -101,6 +101,18 @@ button:focus-visible {
   /* padding: 10px; */
 }
 
+.card-buttons {
+  width: 100%;
+  color: white;
+  border-color: gray;
+  z-index: 2147483647;
+  position: absolute;
+  top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
 .link-to-about {
   color: #888;
   cursor: crosshair;
@@ -140,5 +152,8 @@ button:focus-visible {
     padding-inline: 15px;
     padding-block: 10px;
     font-size: 1.3rem;
+  }
+  .card-buttons {
+    top: 25%;
   }
 }

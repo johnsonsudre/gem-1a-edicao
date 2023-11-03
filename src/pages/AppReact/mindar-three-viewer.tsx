@@ -224,8 +224,22 @@ export default () => {
             arController.showScanning();
           }}
           className="buttonsInsideAR"
-          style={{ display: showRA ? "none" : "undefined" }}
+          style={{
+            display: showRA ? "none" : "flex",
+            backgroundColor: "green",
+            justifyContent: "center" /* Centraliza horizontalmente */,
+            alignItems: "center" /* Centraliza verticalmente */,
+          }}
         >
+          <img
+            src="play.svg"
+            style={{
+              //   fill: "red",
+              paddingRight: "10px",
+              //   margin: "-5px",
+              //   alignItems: "center" /* Centraliza verticalmente */,
+            }}
+          ></img>
           Iniciar
         </button>
       </div>
