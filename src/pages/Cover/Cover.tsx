@@ -32,13 +32,6 @@ function template() {
           Fase 1: <b>g</b>raffiti & <b>r</b>ealidade <b>a</b>umentada
         </p>
         <button
-          style={{
-            marginTop: "10px",
-            paddingInline: "40px",
-            paddingBlock: "20px",
-            borderColor: "gray",
-            fontSize: "1.5rem",
-          }}
           id="start"
           onClick={() => {
             navigate("graffiti");
