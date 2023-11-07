@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { randomBetween } from "../../tools/randomBetween";
 
 const startParticles = () => {
-  const scaleFactor = 0.01;
+  const scaleFactor = 0.025;
   const particleTexture = new THREE.TextureLoader().load("images/spark.png");
   let particleGroup = new THREE.Object3D();
   let particleAttributes: {
@@ -22,11 +22,11 @@ const startParticles = () => {
       color: 0xffffff,
     });
     const sprite = new THREE.Sprite(spriteMaterial);
-    var scale = Math.random() * scaleFactor;
-    sprite.scale.set(scale, scale, 1.0); // imageWidth, imageHeight
+    var dotScale = Math.random() * scaleFactor;
+    sprite.scale.set(dotScale, dotScale, dotScale); // imageWidth, imageHeight
     sprite.position.set(
       Math.random() - 0.5,
-      Math.random() - 0.5,
+      Math.random() - 0.2,
       Math.random() - 0.5
     );
     // for a cube:
