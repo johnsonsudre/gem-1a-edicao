@@ -22,11 +22,8 @@ const startParticles = () => {
       color: 0xffffff,
     });
     const sprite = new THREE.Sprite(spriteMaterial);
-    sprite.scale.set(
-      Math.random() * scaleFactor,
-      Math.random() * scaleFactor,
-      1.0
-    ); // imageWidth, imageHeight
+    var scale = Math.random() * scaleFactor;
+    sprite.scale.set(scale, scale, 1.0); // imageWidth, imageHeight
     sprite.position.set(
       Math.random() - 0.5,
       Math.random() - 0.5,
@@ -61,7 +58,6 @@ const updateParticleNoise = (particles: THREE.Object3D) => {
   particles.children.map((dust) => {
     const { x: x_pos, y: y_pos, z: z_pos } = dust.position;
     const { x: x_scale, y: y_scale } = dust.scale;
-    // console.log(x, y, z);
     dust.position.set(
       x_pos + randomBetween(-positionNoiseFactor, positionNoiseFactor),
       y_pos + randomBetween(-positionNoiseFactor, positionNoiseFactor),

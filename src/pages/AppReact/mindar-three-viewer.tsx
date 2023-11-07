@@ -62,13 +62,11 @@ export default () => {
         model.position.set(0, 0.015, 0);
         anchor.group.add(model);
         model.traverse(function (object: any) {
-          console.log(object.userData);
           if (object.userData.alphaMap) {
             if (object.userData.alphaMap === "faces") {
               object.material.alphaMap = new THREE.TextureLoader().load(
                 "images/graffiti-alpha-mask.png"
               );
-              console.log(object.material);
             }
           }
           objectsToBeRotate.check(object);
@@ -81,7 +79,6 @@ export default () => {
         mixer = new THREE.AnimationMixer(model);
         var clips = gltf.animations;
         clips.map((thisClip) => {
-          console.log(`iniciar animação ${thisClip.name}`);
           mixer.clipAction(thisClip).play();
         });
       },
