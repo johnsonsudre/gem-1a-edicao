@@ -22,11 +22,6 @@ export class ARController {
     });
     console.log(Object.entries(this.mindARThree));
     console.log(Object.entries(this.mindARThree.renderer));
-    // const controller = this.mindARThree.controller;
-    // console.log(controller);
-    // console.log(this.mindARThree.entries());
-    // this.mindARThree.addEventListener("arReady", () => {
-    // });
     this.uiScanning = this.mindARThree.ui.scanningMask;
     this.uiLoading = this.mindARThree.ui.loadingModal;
     this.uiCompatibility = this.mindARThree.ui.compatibilityModal;
@@ -35,7 +30,6 @@ export class ARController {
   // RA
   stop() {
     if (this.mindARThree) {
-      // this.mindARThree.renderer.setAnimationLoop(null);
       this.mindARThree.stop();
     }
   }
@@ -97,11 +91,5 @@ export class ARController {
     scanningElements[0].remove();
     loadingElements[0].remove();
     compatibilityElements[0].remove();
-    // console.log(this.uiLoading);
-    // console.log(this.uiCompatibility);
-
-    // if (this.uiScanning) this.uiScanning.remove();
-    // if (this.uiLoading) this.uiLoading.remove();
-    // if (this.uiCompatibility) this.uiCompatibility.remove();
   }
 }
