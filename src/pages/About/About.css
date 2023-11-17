@@ -73,10 +73,6 @@ a {
     margin-block: 2rem;
   }
 
-  .flex-column {
-    background-color: gray;
-  }
-
   .flex-container {
     padding-inline: 2em;
     padding-block-end: 4rem;
