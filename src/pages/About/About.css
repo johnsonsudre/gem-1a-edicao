@@ -1,22 +1,109 @@
+a {
+  color: white;
+}
+
 .flex-column {
-  /* padding: 0%; */
-  /* margin: 0%; */
-  /* border: 0cap; */
-  /* overflow-x: hidden; */
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   align-content: center;
-  /* justify-content: space-around;  */
+  overflow-x: hidden;
+  padding-block-end: 2rem;
 }
 
-.flex-row {
-  /* flex-direction: "row"; | row-reverse | column | column-reverse; */
-  /* flex-wrap: nowrap; */
+.flex-container {
+  display: flex;
+  /* flex: 0.7; */
+  padding-inline: 2em;
+  padding-block-end: 2rem;
 }
 
-.container {
+.flex-item-text {
+  font-size: 24px;
+  font-weight: lighter;
+  text-indent: 50px;
+  text-align: justify;
+  text-justify: inter-word;
+  padding: 50px;
+}
+
+.project-logo {
   /* display: flex; */
+  /* flex-direction: column; */
+  /* height: 20em; */
+  /* flex: 0.7; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  transform: rotate(-3deg);
+  /* padding-top: 1rem; */
+}
+
+.flex-item-artist-image {
+  display: flex;
+  flex-direction: column;
+  flex: 0.7;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(4deg);
+}
+
+.flex-item-project-logo {
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+  border: 10px;
+  border-style: solid;
+}
+
+.flex-item-img-artist {
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+  border: 10px;
+  border-style: solid;
+  height: 300px;
+}
+
+/************************************************************************************/
+@media only screen and (max-width: 960px) {
+  h1 {
+    font-size: 2.5em;
+    margin-block: 2rem;
+  }
+
+  .flex-column {
+    background-color: gray;
+  }
+
+  .flex-container {
+    padding-inline: 2em;
+    padding-block-end: 4rem;
+  }
+
+  .flex-item-text {
+    padding: 20px;
+    line-height: normal;
+  }
+
+  .project-logo {
+    padding-top: 2rem;
+  }
+
+  .flex-item-project-logo {
+    padding: 1em;
+    margin-inline: 2rem;
+    border: 5px;
+    height: 6em;
+    border-style: solid;
+  }
+
+  .flex-item-img-artist {
+    padding: 1em;
+    margin-inline: 2rem;
+    border: 5px;
+    border-style: solid;
+    height: 250px;
+  }
 }
