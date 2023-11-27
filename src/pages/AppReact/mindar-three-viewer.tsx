@@ -1,17 +1,23 @@
+/** React */
 import { useEffect, useRef, useState } from "react";
-import { MindARThree } from "mind-ar/dist/mindar-image-three.prod";
-import * as THREE from "three";
-import checkMindArOverlay from "../../tools/checkMindArOverlay";
 import { useNavigate } from "react-router-dom";
-import { closeFullscreen, openFullscreen } from "../../tools/fullcreen";
-import projectLogo from "/logo-graffitiemmovimento-branco.svg";
+
+/** Threejs & MindAR */
+import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
+import { MindARThree } from "mind-ar/dist/mindar-image-three.prod";
+
+/** React */
 import { ARController } from "./ARController";
 import { startParticles, updateParticleNoise } from "./particles";
 import { rotateObjects } from "./rotateObjects";
 import { SetAnchorEvents } from "./SetAnchor";
+import projectLogo from "/logo-graffitiemmovimento-branco.svg";
+import checkMindArOverlay from "../../tools/checkMindArOverlay";
+import { closeFullscreen, openFullscreen } from "../../tools/fullcreen";
 
+/** principal */
 export default () => {
   const [showRA, setShowRA] = useState(false);
   const containerRef = useRef(null);
@@ -29,6 +35,7 @@ export default () => {
     openFullscreen("root");
 
     /** Inicia controlador para mindAR */
+    console.log(containerRef.current);
     if (containerRef.current) arController.init(containerRef.current);
     arController.setZIndex(2147483000);
     mindARThree = arController.mindARThree;
