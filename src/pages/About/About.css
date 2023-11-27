@@ -16,7 +16,7 @@ a {
 .flex-container {
   display: flex;
   /* flex: 0.7; */
-  padding-inline: 2em;
+  padding-inline: 20em;
   padding-block-end: 2rem;
 }
 
