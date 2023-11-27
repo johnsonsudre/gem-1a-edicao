@@ -42,6 +42,8 @@ export default () => {
 
     /** desetrutura objetos necessários */
     const { renderer, scene, camera } = mindARThree;
+    camera.near = 0.1;
+    camera.far = 2.0;
 
     /**  */
     const anchor = mindARThree.addAnchor(0);
