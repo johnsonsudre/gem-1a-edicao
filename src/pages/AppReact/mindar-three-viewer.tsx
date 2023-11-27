@@ -41,7 +41,7 @@ export default () => {
     SetAnchorEvents(anchor);
 
     /** iluminação do ambiente */
-    var ambientLight = new THREE.AmbientLight(0x404040);
+    var ambientLight = new THREE.HemisphereLight(0xffffff);
     ambientLight.intensity = 10;
     anchor.group.add(ambientLight);
 
