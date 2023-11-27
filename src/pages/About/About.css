@@ -2,6 +2,16 @@ a {
   color: white;
 }
 
+p {
+  width: 80vw;
+  text-align: center;
+}
+
+hr {
+  width: 5%;
+  border: 1px dashed whitesmoke;
+}
+
 .flex-column {
   width: 100vw;
   height: 100vh;
@@ -67,13 +77,14 @@ a {
 }
 
 /************************************************************************************/
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 1600px) {
   h1 {
     font-size: 2.5em;
     margin-block: 2rem;
   }
 
   .flex-container {
+    flex-direction: column-reverse;
     padding-inline: 2em;
     padding-block-end: 4rem;
   }
