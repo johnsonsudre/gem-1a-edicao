@@ -51,9 +51,9 @@ export default () => {
     SetAnchorEvents(anchor);
 
     /** iluminação do ambiente */
-    var ambientLight = new THREE.HemisphereLight(0xffffff);
-    ambientLight.intensity = 1;
-    anchor.group.add(ambientLight);
+    // var ambientLight = new THREE.HemisphereLight(0xffffff);
+    // ambientLight.intensity = 1;
+    // anchor.group.add(ambientLight);
 
     /** prepara cena */
     const objectsToBeRotate = new rotateObjects();
