@@ -52,7 +52,7 @@ export default () => {
 
     /** iluminação do ambiente */
     var ambientLight = new THREE.HemisphereLight(0xffffff);
-    ambientLight.intensity = 10;
+    ambientLight.intensity = 1;
     anchor.group.add(ambientLight);
 
     /** prepara cena */
