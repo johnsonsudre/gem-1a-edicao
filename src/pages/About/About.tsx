@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import projectLogo from "/logo-graffitiemmovimento-branco.svg";
+import artistPhoto from "/images/about/foto-artista-johnson.jpg";
 import artist1Photo from "/images/about/foto-artista-luhan.jpg";
 import artist2Photo from "/images/about/foto-artista-leandro.jpg";
 import patro1Logo from "/images/about/funcultura-branco-h.png";
@@ -10,6 +11,15 @@ function template() {
   const navigate = useNavigate();
   return (
     <div id="about" className="flex-column">
+      <div>
+        <button
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Voltar
+        </button>
+      </div>
       <div>
         <h1>Sobre</h1>
         <div className="flex-container">
@@ -33,11 +43,27 @@ function template() {
       <hr />
       <h1>Equipe</h1>
       <div className="flex-container">
-        <div className="flex-item-artist-image">
-          <a href="https://www.instagram.com/luhan.gaba/">
-            <img src={artist1Photo} className="flex-item-img-artist" />
+        <div
+          style={{ transform: "rotate(-2deg)" }}
+          className="flex-item-artist-image"
+        >
+          <a href="">
+            <img src={artistPhoto} className="flex-item-img-artist" />
           </a>
         </div>
+        <div className="flex-item-text">
+          <a href="" style={{ fontWeight: "normal" }}>
+            Johnson Sudré:
+          </a>{" "}
+          Coordenador do projeto é artista digital, programador, produtor
+          cultural. Como artista visual considera-se um desespecialista, que
+          experimenta a partir da linguagem digital as múltiplas possibilidades
+          que esta oferece e vasculha nesse contexto formas disruptiva do fazer
+          artístico.
+        </div>
+      </div>
+
+      <div className="flex-container">
         <div className="flex-item-text">
           <a
             href="https://www.instagram.com/luhan.gaba/"
@@ -51,8 +77,13 @@ function template() {
           ancestrais e buscando uma representatividade maior para o povo negro,
           usando o graffiti como ferramenta social de combate ao racismo.
         </div>
+        <div className="flex-item-artist-image">
+          <a href="https://www.instagram.com/luhan.gaba/">
+            <img src={artist1Photo} className="flex-item-img-artist" />
+          </a>
+        </div>
       </div>
-      <hr />
+
       <div className="flex-container">
         <div
           style={{ transform: "rotate(-2deg)" }}
