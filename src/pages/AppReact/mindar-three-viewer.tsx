@@ -19,6 +19,7 @@ import { closeFullscreen, openFullscreen } from "../../tools/fullcreen";
 
 /** principal */
 export default () => {
+  const zIndexMaxValue = 2147483000;
   const [showRA, setShowRA] = useState(false);
   const containerRef = useRef(null);
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ export default () => {
     /** Inicia controlador para mindAR */
     console.log(containerRef.current);
     if (containerRef.current) arController.init(containerRef.current);
-    arController.setZIndex(2147483000);
+    arController.setZIndex(zIndexMaxValue);
     mindARThree = arController.mindARThree;
 
     /** desetrutura objetos necessários */
@@ -69,6 +70,7 @@ export default () => {
       (gltf) => {
         const model = gltf.scene;
         model.position.set(0, 0.015, 0);
+        model.scale.set(3, 3, 3);
         anchor.group.add(model);
         model.traverse(function (object: any) {
           if (object.userData.alphaMap) {
