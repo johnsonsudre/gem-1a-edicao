@@ -71,8 +71,13 @@ export default () => {
         const model = gltf.scene;
         model.position.set(0, 0.015, 0);
         model.scale.set(3, 3, 3);
-        anchor.group.add(model);
         model.traverse(function (object: any) {
+          let lPos = object.position;
+          if (object.name === "galaxia") {
+            const light = new THREE.AmbientLight(0xffffff, 1);
+            light.position.set(lPos.x, lPos.y, lPos.z);
+            model.add(light);
+          }
           if (object.userData.alphaMap) {
             if (object.userData.alphaMap === "faces") {
               object.material.alphaMap = new THREE.TextureLoader().load(
@@ -85,6 +90,8 @@ export default () => {
             if (!object.userData.noShadow) object.castShadow = true;
           }
         });
+
+        anchor.group.add(model);
 
         /** inicia animação */
         mixer = new THREE.AnimationMixer(model);
