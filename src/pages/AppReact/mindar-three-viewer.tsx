@@ -78,13 +78,13 @@ export default () => {
             light.position.set(lPos.x, lPos.y, lPos.z);
             model.add(light);
           }
-          if (object.userData.alphaMap) {
-            if (object.userData.alphaMap === "faces") {
-              object.material.alphaMap = new THREE.TextureLoader().load(
-                "images/graffiti-alpha-mask.png"
-              );
-            }
-          }
+          // if (object.userData.alphaMap) {
+          //   if (object.userData.alphaMap === "faces") {
+          //     object.material.alphaMap = new THREE.TextureLoader().load(
+          //       "images/graffiti-alpha-mask.png"
+          //     );
+          //   }
+          // }
           objectsToBeRotate.check(object);
           if (object.isMesh) {
             if (!object.userData.noShadow) object.castShadow = true;
