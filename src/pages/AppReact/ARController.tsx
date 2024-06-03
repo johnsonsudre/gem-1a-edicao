@@ -16,7 +16,7 @@ export class ARController {
   init(container) {
     this.mindARThree = new MindARThree({
       container: container,
-      imageTargetSrc: "/marker/targets.mind",
+      imageTargetSrc: "/marker/targets2.mind",
       filterMinCF: 0.001,
       filterBeta: 0.01,
     });
