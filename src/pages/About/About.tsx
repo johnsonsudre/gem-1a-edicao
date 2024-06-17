@@ -23,15 +23,33 @@ function template() {
       <div>
         <h1>Sobre</h1>
         <div className="flex-container">
-          <div className="flex-item-text">
-            O projeto{" "}
-            <b style={{ fontWeight: "normal" }}>Graffiti em Movimento</b> tem o
-            objetivo de inserir no cotidiano capixaba novas formas de interação
-            com as cidades a partir do encontro da arte digital e da arte
-            urbana. Um aplicativo de realidade aumentada vai oferecer uma nova
-            experiência através da pintura produzida pelo artista Luhan Gaba.
+          <div>
+            <div className="flex-item-text">
+              O projeto{" "}
+              <b style={{ fontWeight: "normal" }}>Graffiti em Movimento</b>{" "}
+              propõe uma iniciativa inovadora ao unir arte digital e arte
+              urbana, transformando o modo como as pessoas interagem com as
+              cidades do Espírito Santo. Esse projeto pretende inserir novas
+              formas de interação no cotidiano dos capixabas, proporcionando uma
+              experiência única através de um aplicativo de realidade aumentada
+              (AR).
+            </div>
+            <div className="flex-item-text" style={{ paddingTop: "0px" }}>
+              Com o uso desse aplicativo, os usuários poderão acessar camadas
+              adicionais de conteúdo nas obras de arte urbana, como grafites e
+              murais, criadas por artistas locais. Isso permitirá que as
+              pinturas ganhem vida, oferecendo novas perspectivas e informações
+              que não seriam visíveis a olho nu.
+            </div>
           </div>
-          <div className="project-logo">
+          <div
+            className="project-logo"
+            style={{
+              display: "flex",
+              justifyContent: "center" /* Centraliza horizontalmente */,
+              alignItems: "center" /* Centraliza verticalmente */,
+            }}
+          >
             <img
               className="flex-item-project-logo"
               src={projectLogo}
@@ -55,10 +73,10 @@ function template() {
           <a href="" style={{ fontWeight: "normal" }}>
             Johnson Sudré:
           </a>{" "}
-          Coordenador do projeto é artista digital, programador, produtor
+          Coordenador do projeto: é artista digital, programador e produtor
           cultural. Como artista visual considera-se um desespecialista, que
           experimenta a partir da linguagem digital as múltiplas possibilidades
-          que esta oferece e vasculha nesse contexto formas disruptiva do fazer
+          que esta oferece e vasculha nesse universo formas disruptivas do fazer
           artístico.
         </div>
       </div>
@@ -100,8 +118,12 @@ function template() {
           >
             Leandro Pereira dos Santos:
           </a>{" "}
-          Artista visual, pesquisador, Produtor cultural, Diretor de Fotografia,
-          Editor de vídeo.
+          é um profissional versátil, cuja gama de habilidades e experiências em
+          fotografia enriquece o cenário artístico e cultural. Ele se destaca
+          como artista visual, pesquisador, produtor cultural, diretor de
+          fotografia e editor de vídeo, contribuindo significativamente para o
+          desenvolvimento de projetos que combinam diferentes formas de arte e
+          tecnologia.
         </div>
       </div>
       <hr />

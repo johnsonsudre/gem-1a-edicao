@@ -8,8 +8,8 @@ p {
 }
 
 hr {
-  width: 5%;
-  border: 1px dashed white;
+  width: 25%;
+  /* border: 1px dashed white; */
 }
 
 .flex-column {
