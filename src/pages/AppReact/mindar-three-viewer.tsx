@@ -63,7 +63,8 @@ export default () => {
 
     /** Adiciona particulas */
     const dust = new Dust(particleTexture);
-    // const dust = startParticles();
+    dust.setParticleCount(500);
+    dust.setParticleSize(150);
     anchor.group.add(dust.particleSystem);
 
     /**  carrega um recurso/modelo glTF */

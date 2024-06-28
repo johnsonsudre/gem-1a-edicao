@@ -14,7 +14,7 @@ export class Dust {
   particleSystem;
   constructor(map) {
     // Geometria e material das partículas
-    this.particleSize = 100;
+    this.particleSize = 150;
     this.particleVelocity = 0.002;
     this.limit = { x: 6, y: 3, z: 4 };
     this.particleCount = 500;
@@ -69,7 +69,18 @@ export class Dust {
       this.particlesMaterial
     );
   }
-
+  setParticleSize(size) {
+    this.particleSize(size);
+  }
+  setParticleCount(count) {
+    this.particleCount(count);
+  }
+  setParticleVelocity(velocity) {
+    this.particleVelocity(velocity);
+  }
+  setParticleLimit(x, y, z) {
+    this.limit({ x: x, y: y, z: z });
+  }
   update() {
     const positions = this.particlesGeometry.attributes.position.array;
     const velocities = this.particlesGeometry.attributes.velocity.array;
