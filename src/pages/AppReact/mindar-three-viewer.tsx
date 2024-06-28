@@ -16,6 +16,7 @@ import { SetAnchorEvents } from "./SetAnchor";
 import projectLogo from "/logo-graffitiemmovimento-branco.svg";
 import checkMindArOverlay from "../../tools/checkMindArOverlay";
 import { closeFullscreen, openFullscreen } from "../../tools/fullcreen";
+import { Dust } from "./Dust";
 
 /** principal */
 export default () => {
@@ -35,8 +36,10 @@ export default () => {
   useEffect(() => {
     openFullscreen("root");
 
+    const textureLoader = new THREE.TextureLoader();
+    const particleTexture = textureLoader.load("images/dust.png");
+
     /** Inicia controlador para mindAR */
-    console.log(containerRef.current);
     if (containerRef.current) arController.init(containerRef.current);
     arController.setZIndex(zIndexMaxValue);
     mindARThree = arController.mindARThree;
@@ -59,8 +62,9 @@ export default () => {
     const objectsToBeRotate = new rotateObjects();
 
     /** Adiciona particulas */
-    const dust = startParticles();
-    anchor.group.add(dust);
+    const dust = new Dust(particleTexture);
+    // const dust = startParticles();
+    anchor.group.add(dust.particleSystem);
 
     /**  carrega um recurso/modelo glTF */
     loader.load(
@@ -117,7 +121,8 @@ export default () => {
     renderer.setAnimationLoop(() => {
       renderer.render(scene, camera);
       objectsToBeRotate.update();
-      updateParticleNoise(dust);
+      // updateParticleNoise(dust);
+      dust.update();
       if (mixer) {
         mixer.update(0.01);
       }
