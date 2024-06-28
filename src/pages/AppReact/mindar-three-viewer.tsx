@@ -10,7 +10,7 @@ import { MindARThree } from "mind-ar/dist/mindar-image-three.prod";
 
 /** React */
 import { ARController } from "./ARController";
-import { startParticles, updateParticleNoise } from "./particles";
+// import { startParticles, updateParticleNoise } from "./particles";
 import { rotateObjects } from "./rotateObjects";
 import { SetAnchorEvents } from "./SetAnchor";
 import projectLogo from "/logo-graffitiemmovimento-branco.svg";
