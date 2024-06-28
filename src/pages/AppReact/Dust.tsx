@@ -70,16 +70,16 @@ export class Dust {
     );
   }
   setParticleSize(size) {
-    this.particleSize(size);
+    this.particleSize = size;
   }
   setParticleCount(count) {
-    this.particleCount(count);
+    this.particleCount = count;
   }
   setParticleVelocity(velocity) {
-    this.particleVelocity(velocity);
+    this.particleVelocity = velocity;
   }
   setParticleLimit(x, y, z) {
-    this.limit({ x: x, y: y, z: z });
+    this.limit = { x: x, y: y, z: z };
   }
   update() {
     const positions = this.particlesGeometry.attributes.position.array;
